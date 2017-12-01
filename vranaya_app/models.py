@@ -22,3 +22,12 @@ class Song(models.Model):
 
     def __str__(self):
         return self.song_title
+
+class Video(models.Model):
+    user = models.ForeignKey(User, default=1)
+    video_title = models.CharField(max_length=250)
+    video_file = models.FileField(default='')
+    is_360 = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.video_title

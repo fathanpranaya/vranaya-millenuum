@@ -14,7 +14,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'vranaya_app.apps.MusicConfig',
+    'vranaya_app.apps.VranayaAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

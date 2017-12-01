@@ -3,11 +3,12 @@ from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
-from .forms import AlbumForm, SongForm, UserForm
-from .models import Album, Song
+from .forms import *
+from .models import Album, Song, Video
 
 AUDIO_FILE_TYPES = ['wav', 'mp3', 'ogg']
 IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
+VIDEO_FILE_TYPES = ['mp4']
 
 
 def create_album(request):
@@ -209,3 +210,47 @@ def songs(request, filter_by):
             'song_list': users_songs,
             'filter_by': filter_by,
         })
+
+# Video Handler
+
+def videos(request, filter_by):
+    if not request.user.is_authenticated():
+        return render(request, 'music/login.html')
+    else:
+        videos = Video.objects.filter(user=request.user)
+        if filter_by == 'is_360':
+            videos = videos.filter(is_360=True)
+
+        return render(request, 'video/index.html', {
+            'videos': videos,
+            'filter_by': filter_by,
+        })
+
+
+def create_video(request):
+    if not request.user.is_authenticated():
+        return render(request, 'music/login.html')
+    else:
+        form = VideoForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            video = form.save(commit=False)
+            video.user = request.user
+            video.video_file = request.FILES['video_file']
+            file_type = video.video_file.url.split('.')[-1]
+            file_type = file_type.lower()
+            if file_type not in VIDEO_FILE_TYPES:
+                context = {
+                    'video': video,
+                    'form': form,
+                    'error_message': 'Image file must be mp4',
+                }
+                return render(request, 'video/create_video.html', context)
+            video.save()
+            return render(request, 'video/index.html', {
+                'videos': Video.objects.filter(user=request.user),
+                'filter_by': 'all',
+            })
+        context = {
+            "form": form,
+        }
+        return render(request, 'video/create_video.html', context)

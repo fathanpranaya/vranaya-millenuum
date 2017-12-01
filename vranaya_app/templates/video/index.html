@@ -1,0 +1,62 @@
+{% extends 'music/base.html' %}
+{% block title %}All Videos{% endblock %}
+{% block videos_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" {% if filter_by == 'all' %}class="active"{% endif %}><a href="{% url 'vranaya_app:videos' 'all' %}">View All</a></li>
+                <li role="presentation" {% if filter_by == 'is_360' %}class="active"{% endif %}><a href="{% url 'vranaya_app:videos' 'is_360' %}">360 Videos</a></li>
+                <li role="presentation"><button onclick="window.location.href='{% url "vranaya_app:create_video" %}'" class="btn btn-warning">+ Add New Video</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Video Title</th>
+                                <th>Video File</th>
+                                <th>360 Video?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for video in videos %}
+                                <tr>
+                                    <td>{{ video.video_title }}</td>
+                                    <td>
+                                        <a target="_blank" href="{{ video.video_file.url }}">
+                                            <button type="button" class="btn btn-success btn-xs">
+                                                <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {% if video.is_360 %}
+                                            <span class="label label-success ">VR Ready</span>
+                                        {% else %}
+                                            <span class="label label-danger ">Not VR Ready</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
