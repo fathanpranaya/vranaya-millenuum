@@ -137,15 +137,15 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-6">
-                                <a href="#" class="active" id="login-form-link">Login</a>
+                                <a class="{% block login_active %} {% endblock %}" href="{% url 'vranaya_app:login_user' %}">Log In</a></li>
                             </div>
                             <div class="col-xs-6">
-                                <a href="#" id="register-form-link">Register</a>
+                                <a class="{% block register_active %} {% endblock %}" href="{% url 'vranaya_app:register' %}">Register</a>
                             </div>
                         </div>
                         <hr>
                     </div>
-                    {% block body %} {%endblock}
+                    {% block body %} {% endblock %}
                 </div>
             </div>
         </div>
