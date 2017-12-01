@@ -23,7 +23,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password', 'first_name', 'last_name']
 
 
 
@@ -31,4 +31,4 @@ class VideoForm(forms.ModelForm):
 
     class Meta:
         model = Video
-        fields = ['video_title', 'video_file', 'is_360']
+        fields = ['video_title', 'video_file', 'video_logo', 'is_360']
