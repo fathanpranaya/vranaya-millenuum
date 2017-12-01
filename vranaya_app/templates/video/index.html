@@ -44,7 +44,7 @@
                                             </button>
                                         </a>
                                         {% if video.is_360 %}
-                                            <a target="_blank" href="{{ video.video_file.url }}">
+                                            <a target="_blank" href="{% url 'vranaya_app:detail_video' video.id %}">
                                                 <button type="button" class="btn btn-primary btn-xs">
                                                     <span class="glyphicon glyphicon-eye-open"></span>&nbsp; Enter VR
                                                 </button>

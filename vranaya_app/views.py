@@ -220,7 +220,6 @@ def videos(request, filter_by):
         videos = Video.objects.filter(user=request.user)
         if filter_by == 'is_360':
             videos = videos.filter(is_360=True)
-
         return render(request, 'video/index.html', {
             'videos': videos,
             'filter_by': filter_by,
