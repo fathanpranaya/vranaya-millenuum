@@ -254,3 +254,17 @@ def create_video(request):
             "form": form,
         }
         return render(request, 'video/create_video.html', context)
+
+def delete_video(request, video_id):
+    video = Video.objects.get(pk=video_id)
+    video.delete()
+    videos = Video.objects.filter(user=request.user)
+    return render(request, 'video/index.html', {'videos': videos})
+
+def detail_video(request, video_id):
+    if not request.user.is_authenticated():
+        return render(request, 'music/login.html')
+    else:
+        user = request.user
+        video = get_object_or_404(Video, pk=video_id)
+        return render(request, 'video/detail.html', {'video': video, 'user': user})

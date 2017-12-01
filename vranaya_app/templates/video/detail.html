@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>360 Video Control Example</title>
+    <meta name="description" content="360 Video — A-Frame">
+    <!-- loac JS Static File -->
+    {% load staticfiles%}
+    <script src="{% static 'music/js/aframe-build.js' %}"></script>
+
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+
+        <video id="video_1" src="{{ video.video_file.url }}"></video>
+
+      </a-assets>
+
+      <a-camera>
+          <a-cursor id="cursor" color="yellow"></a-cursor>
+      </a-camera>
+
+      <a-videosphere src="#video_1" rotation="0 180 0"></a-videosphere>
+
+      <a-entity video-controls="src:#video_1"></a-entity>
+
+    </a-scene>
+  </body>
+</html>cc

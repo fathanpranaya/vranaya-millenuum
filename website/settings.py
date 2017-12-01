@@ -9,7 +9,7 @@ SECRET_KEY = 'rha7*we-io_dbhnf$k)%wum_i=-fct9+n^j+@5j9p*$z01lzj1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.63', '192.168.1.230']
+ALLOWED_HOSTS = ['192.168.1.63', '192.168.1.230', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -59,8 +59,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'vranaya-database',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'homestead',
+        'PASSWORD': 'secret',
         'HOST': '192.168.10.10',
         'PORT': '3306',
     }

@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^logout_user/$', views.logout_user, name='logout_user'),
     
     url(r'^(?P<album_id>[0-9]+)/$', views.detail, name='detail'),
+    url(r'^(?P<album_id>[0-9]+)/$', views.detail, name='detail'),
     url(r'^(?P<song_id>[0-9]+)/favorite/$', views.favorite, name='favorite'),
     url(r'^songs/(?P<filter_by>[a-zA_Z]+)/$', views.songs, name='songs'),
     
@@ -20,8 +21,10 @@ urlpatterns = [
     url(r'^(?P<album_id>[0-9]+)/favorite_album/$', views.favorite_album, name='favorite_album'),
     url(r'^(?P<album_id>[0-9]+)/delete_album/$', views.delete_album, name='delete_album'),
 
+    url(r'^videos/(?P<video_id>[0-9]+)/detail/$', views.detail_video, name='detail_video'),
     url(r'^videos/(?P<filter_by>[a-zA_Z0-9]+)/$', views.videos, name='videos'),
     url(r'^create_video/$', views.create_video, name='create_video'),
+    url(r'^videos/(?P<video_id>[0-9]+)/delete_video/$', views.delete_video, name='delete_video'),
 
 
 ]

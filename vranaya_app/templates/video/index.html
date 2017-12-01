@@ -24,14 +24,18 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Video Logo</th>
                                 <th>Video Title</th>
-                                <th>Video File</th>
-                                <th>360 Video?</th>
+                                <th>Operations</th>
+                                <th>Playing Times</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for video in videos %}
                                 <tr>
+                                    <td>
+                                        <img class="img-responsive" src="{{ video.video_logo.url }}" alt="Chania" width="75" height="75"> 
+                                    </td>
                                     <td>{{ video.video_title }}</td>
                                     <td>
                                         <a target="_blank" href="{{ video.video_file.url }}">
@@ -39,14 +43,24 @@
                                                 <span class="glyphicon glyphicon-play"></span>&nbsp; Play
                                             </button>
                                         </a>
-                                    </td>
-                                    <td>
                                         {% if video.is_360 %}
-                                            <span class="label label-success ">VR Ready</span>
+                                            <a target="_blank" href="{{ video.video_file.url }}">
+                                                <button type="button" class="btn btn-primary btn-xs">
+                                                    <span class="glyphicon glyphicon-eye-open"></span>&nbsp; Enter VR
+                                                </button>
+                                            </a>
                                         {% else %}
                                             <span class="label label-danger ">Not VR Ready</span>
                                         {% endif %}
+                                        <form action="{% url 'vranaya_app:delete_video' video.id %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="video_id" value="{{ video.id }}" />
+                                            <button type="submit" class="btn btn-danger btn-xs">
+                                                <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                            </button>
+                                        </form>
                                     </td>
+                                    <td><span class="label label-warning">{{ video.view_counter }}</span></td>
                                 </tr>
                             {% endfor %}
                         </tbody>

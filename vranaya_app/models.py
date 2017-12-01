@@ -30,7 +30,7 @@ class Video(models.Model):
     video_title = models.CharField(max_length=250)
     video_file = models.FileField(default='')
     video_logo = models.FileField(default='')
-    view_counter = models.IntegerField(default=1)
+    view_counter = models.IntegerField(default=0)
     is_360 = models.BooleanField(default=False)
 
     def __str__(self):
