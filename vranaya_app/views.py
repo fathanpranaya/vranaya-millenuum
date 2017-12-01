@@ -3,6 +3,7 @@ from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from .forms import *
 from .models import Album, Song, Video
 
@@ -106,7 +107,8 @@ def favorite(request, song_id):
     except (KeyError, Song.DoesNotExist):
         return JsonResponse({'success': False})
     else:
-        return JsonResponse({'success': True})
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        # return JsonResponse({'success': True})
 
 
 def favorite_album(request, album_id):
@@ -120,7 +122,8 @@ def favorite_album(request, album_id):
     except (KeyError, Album.DoesNotExist):
         return JsonResponse({'success': False})
     else:
-        return JsonResponse({'success': True})
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        # return JsonResponse({'success': True})
 
 
 def index(request):
