@@ -38,11 +38,6 @@
                                     </td>
                                     <td>{{ video.video_title }}</td>
                                     <td>
-                                        <a target="_blank" href="{{ video.video_file.url }}">
-                                            <button type="button" class="btn btn-success btn-xs">
-                                                <span class="glyphicon glyphicon-play"></span>&nbsp; Play
-                                            </button>
-                                        </a>
                                         {% if video.is_360 %}
                                             <a target="_blank" href="{% url 'vranaya_app:detail_video' video.id %}">
                                                 <button type="button" class="btn btn-primary btn-xs">
@@ -50,7 +45,11 @@
                                                 </button>
                                             </a>
                                         {% else %}
-                                            <span class="label label-danger ">Not VR Ready</span>
+                                            <a target="_blank" href="{{ video.video_file.url }}">
+                                                <button type="button" class="btn btn-success btn-xs">
+                                                    <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                                </button>
+                                            </a>
                                         {% endif %}
                                         <form action="{% url 'vranaya_app:delete_video' video.id %}" method="post" style="display: inline;">
                                             {% csrf_token %}

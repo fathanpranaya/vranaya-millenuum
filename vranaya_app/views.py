@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from .forms import *
 from .models import Album, Song, Video
 
-AUDIO_FILE_TYPES = ['wav', 'mp3', 'ogg']
+AUDIO_FILE_TYPES = ['wav', 'mp3', 'ogg', 'm4a']
 IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
 VIDEO_FILE_TYPES = ['mp4']
 
@@ -125,8 +125,37 @@ def favorite_album(request, album_id):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         # return JsonResponse({'success': True})
 
-
+# list_album
 def index(request):
+    if not request.user.is_authenticated():
+        return render(request, 'music/login.html')
+    else:
+        albums = Album.objects.filter(user=request.user)
+        videos = Video.objects.filter(user=request.user)
+        song_results = Song.objects.all()
+        query = request.GET.get("q")
+        if query:
+            albums = albums.filter(
+                Q(album_title__icontains=query) |
+                Q(artist__icontains=query)
+            ).distinct()
+            song_results = song_results.filter(
+                Q(song_title__icontains=query)
+            ).distinct()
+            videos = videos.filter(Q(video_title__icontains=query)).distinct()
+            return render(request, 'index.html', {
+                'videos': videos,
+                'albums': albums,
+                'songs': song_results,
+            })
+        else:
+            return render(request, 'index.html', {
+                'albums': albums,
+                'videos': videos
+            })
+
+
+def albums(request):
     if not request.user.is_authenticated():
         return render(request, 'music/login.html')
     else:
@@ -269,4 +298,6 @@ def detail_video(request, video_id):
     else:
         user = request.user
         video = get_object_or_404(Video, pk=video_id)
+        video.view_counter = video.view_counter + 1
+        video.save()
         return render(request, 'video/detail.html', {'video': video, 'user': user})

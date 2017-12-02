@@ -44,10 +44,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 			<div class="top-search">
-				<form class="navbar-form navbar-right">
-					<input type="text" class="form-control" placeholder="Search...">
-					<input type="submit" value=" ">
-				</form>
+				<form class="navbar-form navbar-left" role="search" method="get" action="{% url 'vranaya_app:index' %}">
+	                <div class="form-group">
+	                    <input type="text" class="form-control" name="q" value="{{ request.GET.q }}" placeholder="search...">
+	                </div>
+	                <button type="submit" class="btn btn-default">Search</button>
+	            </form>
 			</div>
 			<div class="header-top-right">
 				<div class="file" style="margin: 0.35em 0 0 0;">
@@ -128,21 +130,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 				<div class="drop-navigation drop-navigation">
 				  <ul class="nav nav-sidebar">
-					<li class="{% block index_active %}{% endblock %}"><a href="{% url 'vranaya_app:index' %}" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+					<li class="{% block home_active %}{% endblock %}"><a href="{% url 'vranaya_app:index' %}" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
 					<li class="{% block videos_active %}{% endblock %}"><a href="{% url 'vranaya_app:videos' 'all' %}" ><span class="glyphicon glyphicon-film" aria-hidden="true"></span>Video</a></li>
-					<li class="{% block albums_active %}{% endblock %}"><a href="#" class="menu1"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>Album<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
-						<ul class="cl-effect-2">
+					<li class="{% block albums_active %}{% endblock %}"><a href="{% url 'vranaya_app:albums' %}" class="menu1"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>Album
+						<!-- <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> --></a></li>
+						<!-- <ul class="cl-effect-2">
 							<li><a href="{% url 'vranaya_app:index' %}">All</a></li>                                             
 							<li><a href="movies.html">Most Played</a></li>
 							<li><a href="movies.html">Favorites</a></li>
-						</ul>
+						</ul> -->
 						<!-- script-for-menu -->
-						<script>
+						<!-- <script>
 							$( "li a.menu1" ).click(function() {
 								$( "ul.cl-effect-2" ).slideToggle( 300, function() {
 								});
 							});
-						</script>
+						</script> -->
 					<li class="{% block songs_active %}{% endblock %}"><a href="{% url 'vranaya_app:songs' 'all' %}" ><span class="glyphicon glyphicon-cd" aria-hidden="true" style="margin-right: 30px;font-size: 18px"></span>Song</a></li>
 				  </ul>
 				  <!-- script-for-menu -->
